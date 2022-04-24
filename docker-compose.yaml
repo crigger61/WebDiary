@@ -1,0 +1,25 @@
+services:
+  frontend:
+    image: nginx
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "9876:80"
+    restart: always
+  api:
+    build: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - "9875:8080"
+    restart: always
+  db:
+    image: postgres
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: changeme
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    restart: always
