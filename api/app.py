@@ -21,10 +21,10 @@ def api_system_setup():
                 password=POSTGRES_PASS
         ) as conn:
             conn.execute(open('make_db.sql','r').read())
-        for u, f, l, e, p, rs in [('admin','admin','admin','admin@localhost.com','password123',[ROLE_SUPER])]:
-            r,e  = register_user(u,f,l,e,p,rs)
-            if not r:
-                raise ValueError(f'Could not set up user ({u}): '+ str(e))
+        r, e = register_user('admin','admin','admin','admin@localhost.com',SERVER_DEFAULT_ADMIN_PASSWORD,[ROLE_SUPER])
+        if not r:
+            raise e
+
     except Exception as e:
         return make_api_response('Failed to setup system: '+str(e), status=500)
     return make_api_response('Successfully setup system.')

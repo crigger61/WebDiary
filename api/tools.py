@@ -33,7 +33,7 @@ def salt_password(password, salt=None):
     hashed_password = hashlib.pbkdf2_hmac(
         'sha3_512',
         password.encode(),
-        salt.encode(),
+        (salt + SERVER_PEPPER).encode(),
         100000
     ).hex()
     return hashed_password, salt
