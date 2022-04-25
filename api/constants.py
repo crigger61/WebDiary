@@ -9,3 +9,9 @@ POSTGRES_PASS = 'changeme'
 ROLE_USER = 'user'
 ROLE_USER_ADMIN = 'user_admin'
 ROLE_SUPER = 'super'
+ALL_ROLES = [ROLE_USER, ROLE_USER_ADMIN, ROLE_SUPER]
+
+JWT_SECRET = 'changeme'
+JWT_ALGORITHM = 'HS512'
+JWT_TTE = 60 * 30
+JWT_HEADER = 'X-API-Key'

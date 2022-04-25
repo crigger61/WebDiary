@@ -21,7 +21,7 @@ def api_system_setup():
                 password=POSTGRES_PASS
         ) as conn:
             conn.execute(open('make_db.sql','r').read())
-        r, e = register_user('admin','admin','admin','admin@localhost.com',SERVER_DEFAULT_ADMIN_PASSWORD,[ROLE_SUPER])
+        r, e = register_user('admin', 'admin', 'admin', 'admin@localhost.com', SERVER_DEFAULT_ADMIN_PASSWORD, ALL_ROLES)
         if not r:
             raise e
 
@@ -61,8 +61,32 @@ def api_auth_register():
         return make_api_response('There was an error creating the user: ' + str(e), status=400)
     except Exception as e:
         return make_api_response('There was an error creating the user: ' + repr(e), status=400)
+@app.route('/auth/login', methods=['POST'])
+def api_auth_login():
+    user_json = None
+    try:
+        user_json = request.json
+        for req in ['username', 'password']:
+            if req not in user_json:
+                raise SyntaxError(f'Missing {req} in user json.')
+        user_username = user_json['username']
+        user_password = user_json['password']
 
+        result, exc = login_user(user_username, user_password)
 
+        if not result:
+            raise exc
+        else:
+            return make_api_response('Successfully logged in as user.',
+                                     data=user_json,
+                                     new_token=generate_jwt_for_user(user_username))
+    except BadRequest as e:
+        return make_api_response('There was an error logging in: '
+                                 'Make sure to include a json object with the required fields.', status=400)
+    except (SyntaxError, ValueError) as e:
+        return make_api_response('There was an error logging in: ' + str(e), status=400)
+    except Exception as e:
+        return make_api_response('There was an error loggin in: ' + repr(e), status=400)
 
 
 @app.route('/echo')
