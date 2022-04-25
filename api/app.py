@@ -57,9 +57,7 @@ def api_auth_register():
     except BadRequest as e:
         return make_api_response('There was an error creating the user: '
                                  'Make sure to include a json object with the required fields.', status=400)
-    except SyntaxError as e:
-        return make_api_response('There was an error creating the user: ' + str(e), status=400)
-    except ValueError as e:
+    except (SyntaxError, ValueError) as e:
         return make_api_response('There was an error creating the user: ' + str(e), status=400)
     except Exception as e:
         return make_api_response('There was an error creating the user: ' + repr(e), status=400)
