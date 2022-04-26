@@ -1,6 +1,70 @@
-* {
+:root {
+    --border-radius: 15px;
+    --border-width: 2px;
+    --border-color: black;
+    --border-style: solid;
+    --html-back-color: #5ca6ff;
+    --back-color-1: #d2f5ff;
+    --back-color-2: #d2f5ff;
+    --back-color-3: #d2f5ff;
+    --back-color-4: #d2f5ff;
+    --button-color: #f0f8ff;
+    --button-hover: #78c2ff
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+body * {
     box-sizing: border-box;
+    padding: 5px;
+    margin: 0;
 }
 html {
-    background: #5ca6ff;
+    background: var(--html-back-color);
 }
+#cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: var(--html-back-color);
+}
+.topbar {
+    top: 0;
+    left: 0;
+    background: var(--back-color-1);
+    width: 100%;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border-top: none;
+}
+.container {
+    background: var(--back-color-1);
+    width: 80%;
+    border-radius: var(--border-radius);
+    margin: 50px auto 0;
+}
+.topbar, .container {
+    border-width: var(--border-width);
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+}
+
+
+.center {
+    width: fit-content;
+    margin: auto;
+}
+.button {
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    background: var(--button-color);
+}
+.button:hover {
+    background: var(--button-hover);
+}ß

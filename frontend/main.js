@@ -62,6 +62,31 @@ async function api_put(path = '', data = ''){
 
 
 
+function add_component(comp_id, speed=200){
+    $('#cover').show()
+    $('[comp_id='+comp_id+']').show()
+    $('#cover').fadeOut(speed)
+}
+function del_component(comp_id, speed=200){
+    $('#cover').show()
+    $('[comp_id='+comp_id+']').show()
+    $('#cover').fadeOut(speed)
+}
+function show_component(comp_id, speed=200){
+    $('#cover').show()
+    $('[comp_id]').hide()
+    $('[comp_id='+comp_id+']').show()
+    $('#cover').fadeOut(speed)
+}
+function flash_cover(speed=200){
+    $('#cover').show()
+    $('#cover').fadeOut(speed)
+}
+
+
+
+
+
 function open_main_page(){
 
 }
