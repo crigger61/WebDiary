@@ -53,7 +53,8 @@ def api_auth_register():
         if not result:
             raise exc
         else:
-            return make_api_response('Successfully created user.', data=user_json, new_token='abc')
+            return make_api_response('Successfully created user.',
+                                     new_token='abc')
     except BadRequest as e:
         return make_api_response('There was an error creating the user: '
                                  'Make sure to include a json object with the required fields.', status=400)
