@@ -77,12 +77,11 @@ def login_user(username, password):
             cur = conn.cursor()
             if not check_username(username):
                 raise ValueError('Make sure the username matches an existing user.')
-            cur.execute('SELECT user_id, salt FROM users WHERE username=%s', (username,))
+            cur.execute('SELECT salt FROM users WHERE username=%s', (username,))
             result_set = cur.fetchall()
             if len(result_set) != 1:
                 raise ValueError('Make sure the username matches an existing user.')
-            user_id = result_set[0][0]
-            salt = result_set[0][1]
+            salt = result_set[0][0]
 
             if not check_password(password):
                 raise ValueError('Make sure the password matches for an existing user.')
