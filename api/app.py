@@ -78,7 +78,6 @@ def api_auth_login():
             raise exc
         else:
             return make_api_response('Successfully logged in as user.',
-                                     data=user_json,
                                      new_token=generate_jwt_for_user(user_username))
     except BadRequest as e:
         return make_api_response('There was an error logging in: '
