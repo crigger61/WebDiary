@@ -10,7 +10,7 @@ async function api_get(path = '', data = ''){
         }
     )
     let resp_json = await resp.json()
-    updateJWT(resp_json)
+    update_JWT_from_resp(resp_json)
     return resp_json
 }
 async function api_post(path = '', data = ''){
@@ -25,7 +25,7 @@ async function api_post(path = '', data = ''){
         }
     )
     let resp_json = await resp.json()
-    updateJWT(resp_json)
+    update_JWT_from_resp(resp_json)
     return resp_json
 }
 async function api_put(path = '', data = ''){
@@ -40,7 +40,7 @@ async function api_put(path = '', data = ''){
         }
     )
     let resp_json = await resp.json()
-    updateJWT(resp_json)
+    update_JWT_from_resp(resp_json)
     return resp_json
 }async function api_patch(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
@@ -54,7 +54,7 @@ async function api_put(path = '', data = ''){
         }
     )
     let resp_json = await resp.json()
-    updateJWT(resp_json)
+    update_JWT_from_resp(resp_json)
     return resp_json
 }async function api_delete(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
@@ -68,17 +68,19 @@ async function api_put(path = '', data = ''){
         }
     )
     let resp_json = await resp.json()
-    updateJWT(resp_json)
+    update_JWT_from_resp(resp_json)
     return resp_json
 }
 
 function getJWT(){
     return localStorage.X_API_KEY;
 }
-
-function updateJWT(resp){
+function setJWT(jwt){
+    localStorage.X_API_KEY = jwt;
+}
+function update_JWT_from_resp(resp){
     if(resp.new_token !== null) {
-        localStorage.X_API_KEY = resp.new_token;
+        setJWT(resp.new_token)
         console.log('Updated JWT')
     }
 }
