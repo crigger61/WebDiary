@@ -5,59 +5,83 @@ async function api_get(path = '', data = ''){
         method: 'GET',
         headers: {
                 'Accept': 'application/json',
-                'X-API-Key': localStorage.X_API_KEY
+                'X-API-Key': getJWT()
             }
         }
     )
-    return await resp.json()
+    let resp_json = await resp.json()
+    updateJWT(resp_json)
+    return resp_json
 }
 async function api_post(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
         method: 'POST',
-        body: data,
+        body: JSON.stringify(data),
         headers: {
                 'Accept': 'application/json',
-                'X-API-Key': localStorage.X_API_KEY
+                'Content-Type': 'application/json',
+                'X-API-Key': getJWT()
             }
         }
     )
-    return await resp.json()
+    let resp_json = await resp.json()
+    updateJWT(resp_json)
+    return resp_json
 }
 async function api_put(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
         method: 'PUT',
-        body: data,
+        body: JSON.stringify(data),
         headers: {
                 'Accept': 'application/json',
-                'X-API-Key': localStorage.X_API_KEY
+                'Content-Type': 'application/json',
+                'X-API-Key': getJWT()
             }
         }
     )
-    return await resp.json()
+    let resp_json = await resp.json()
+    updateJWT(resp_json)
+    return resp_json
 }async function api_patch(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
         method: 'PATCH',
-        body: data,
+        body: JSON.stringify(data),
         headers: {
                 'Accept': 'application/json',
-                'X-API-Key': localStorage.X_API_KEY
+                'Content-Type': 'application/json',
+                'X-API-Key': getJWT()
             }
         }
     )
-    return await resp.json()
+    let resp_json = await resp.json()
+    updateJWT(resp_json)
+    return resp_json
 }async function api_delete(path = '', data = ''){
     let resp = await fetch(API_BASE_URL+path, {
         method: 'DELETE',
-        body: data,
+        body: JSON.stringify(data),
         headers: {
                 'Accept': 'application/json',
-                'X-API-Key': localStorage.X_API_KEY
+                'Content-Type': 'application/json',
+                'X-API-Key': getJWT()
             }
         }
     )
-    return await resp.json()
+    let resp_json = await resp.json()
+    updateJWT(resp_json)
+    return resp_json
 }
 
+function getJWT(){
+    return localStorage.X_API_KEY;
+}
+
+function updateJWT(resp){
+    if(resp.new_token !== null) {
+        localStorage.X_API_KEY = resp.new_token;
+        console.log('Updated JWT')
+    }
+}
 
 
 
